@@ -1,0 +1,16 @@
+{
+    "name": "ifcastle/async-contracts",
+    "description": "Async contracts.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["async", "contracts"],
+    "autoload": {
+        "psr-4": {
+            "IfCastle\\Async\\": "src/"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+    }
+}
