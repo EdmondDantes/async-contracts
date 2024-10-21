@@ -4,12 +4,31 @@ declare(strict_types=1);
 namespace IfCastle\Async;
 
 /**
- * Asynchronous timer scheduling interface.
- *
- * @package IfCastle\Application
+ * Asynchronous Coroutine scheduler interface.
  */
-interface ScheduleTimerInterface
+interface CoroutineSchedulerInterface
 {
+    public function run(callable $coroutine): string|int;
+    
+    public function isCoroutine(string|int $coroutineId): bool;
+    
+    public function isRunning(string|int $coroutineId): bool;
+    
+    public function isFinished(string|int $coroutineId): bool;
+    
+    public function stopAll(?\Throwable $exception = null): bool;
+    
+    public function stop(string|int $coroutineId, ?\Throwable $exception = null): bool;
+    
+    /**
+     * @param int $size
+     *
+     * @return ChannelInterface[]
+     */
+    public function createChannelPair(int $size = 0): array;
+    
+    public function createQueue(int $size = 0): QueueInterface;
+    
     /**
      * Schedules a callback to execute in the next iteration of the event loop.
      *

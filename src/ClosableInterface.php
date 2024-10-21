@@ -7,7 +7,7 @@ interface ClosableInterface
 {
     /**
      * Closes the resource, marking it as unusable.
-     * Whether pending operations are aborted or not is implementation dependent.
+     * Whether pending operations are aborted or not is implementation-dependent.
      */
     public function close(): void;
     
