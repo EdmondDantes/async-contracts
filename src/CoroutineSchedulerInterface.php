@@ -8,17 +8,9 @@ namespace IfCastle\Async;
  */
 interface CoroutineSchedulerInterface
 {
-    public function run(callable $coroutine): string|int;
-    
-    public function isCoroutine(string|int $coroutineId): bool;
-    
-    public function isRunning(string|int $coroutineId): bool;
-    
-    public function isFinished(string|int $coroutineId): bool;
+    public function run(callable $coroutine): CoroutineInterface;
     
     public function stopAll(?\Throwable $exception = null): bool;
-    
-    public function stop(string|int $coroutineId, ?\Throwable $exception = null): bool;
     
     /**
      * @param int $size
