@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace IfCastle\Async;
 
-interface CoroutineInterface extends FutureInterface
+interface CoroutineInterface
 {
     public function getCoroutineId(): int|string;
     

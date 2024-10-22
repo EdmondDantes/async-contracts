@@ -9,9 +9,9 @@ namespace IfCastle\Async;
 interface CoroutineSchedulerInterface
 {
     /**
-     * Runs a coroutine and returns a coroutine descriptor.
+     * Runs a coroutine.
      */
-    public function run(callable $coroutine): CoroutineInterface;
+    public function run(\Closure $function): CoroutineInterface;
     
     /**
      * Awaits all futures to complete or aborts if any errors.
