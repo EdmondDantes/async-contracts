@@ -35,7 +35,7 @@ interface CoroutineSchedulerInterface
     /**
      * Unwraps the first completed future.
      *
-     * If you want the first future completed without an error, use {@see awaitAny()} instead.
+     * If you want the first future completed without an error, use {@see awaitFirstSuccessful()} instead.
      */
     public function awaitFirst(iterable $futures, ?CancellationInterface $cancellation = null): mixed;
     
@@ -44,21 +44,21 @@ interface CoroutineSchedulerInterface
      *
      * If you want the first future completed, regardless of whether it completed with an error, use {@see awaitFirst()} instead.
      */
-    public function awaitAny(iterable $futures, ?CancellationInterface $cancellation = null): mixed;
+    public function awaitFirstSuccessful(iterable $futures, ?CancellationInterface $cancellation = null): mixed;
     
     /**
      * Unwraps all completed futures.
      *
-     * If you want the first future completed, use {@see awaitFirst()} instead.
+     * If you want the all future completed, use {@see awaitAllSuccessful()} instead.
      */
     public function awaitAll(iterable $futures, ?CancellationInterface $cancellation = null): array;
     
     /**
      * Unwraps all completed futures without an error.
      *
-     * If you want the first future completed, use {@see awaitFirst()} instead.
+     * If you want the all future completed, use {@see awaitAll()} instead.
      */
-    public function awaitAllWithoutError(iterable $futures, ?CancellationInterface $cancellation = null): array;
+    public function awaitAllSuccessful(iterable $futures, ?CancellationInterface $cancellation = null): array;
     
     /**
      * Returns a new channel pair.
@@ -119,7 +119,7 @@ interface CoroutineSchedulerInterface
      *
      * @return  void
      */
-    public function clear(int|string $timerId): void;
+    public function cancelInterval(int|string $timerId): void;
     
-    public function stopAll(?\Throwable $exception = null): bool;
+    public function stopAllCoroutines(?\Throwable $exception = null): bool;
 }
