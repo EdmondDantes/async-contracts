@@ -49,16 +49,23 @@ interface CoroutineSchedulerInterface
     /**
      * Unwraps all completed futures.
      *
-     * If you want the all future completed, use {@see awaitAllSuccessful()} instead.
+     * If you want the all future completed, use {@see awaitAnyN()} instead.
      */
     public function awaitAll(iterable $futures, ?CancellationInterface $cancellation = null): array;
     
     /**
-     * Unwraps all completed futures without an error.
+     * Awaits the first N successfully completed futures, ignoring errors.
      *
-     * If you want the all future completed, use {@see awaitAll()} instead.
+     * @template Tk of array-key
+     * @template Tv
+     *
+     * @param positive-int $count
+     * @param iterable<Tk, FutureInterface<Tv>> $futures
+     * @param CancellationInterface|null $cancellation Optional cancellation.
+     *
+     * @return non-empty-array<Tk, Tv>
      */
-    public function awaitAllSuccessful(iterable $futures, ?CancellationInterface $cancellation = null): array;
+    public function awaitAnyN(int $count, iterable $futures, ?CancellationInterface $cancellation = null): array;
     
     /**
      * Returns a new channel pair.
@@ -80,6 +87,24 @@ interface CoroutineSchedulerInterface
      * @return QueueInterface
      */
     public function createQueue(int $size = 0): QueueInterface;
+    
+    /**
+     * Creates a timeout cancellation.
+     *
+     * @param float $timeout Timeout in seconds.
+     * @param string $message Message for the exception. Default is "Operation timed out".
+     */
+    public function createTimeoutCancellation(float $timeout, string $message = 'Operation timed out'): CancellationInterface;
+    
+    /**
+     * Creates a composite cancellation.
+     */
+    public function compositeCancellation(CancellationInterface... $cancellations): CancellationInterface;
+    
+    /**
+     * Creates a deferred cancellation.
+     */
+    public function createDeferredCancellation(): DeferredCancellationInterface;
     
     /**
      * Schedules a callback to execute in the next iteration of the event loop.
